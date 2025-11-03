@@ -1,4 +1,13 @@
-/* 따뜻한 테마 팔레트 */
+/* ===== 전역: 스크롤 허용 & 박스 사이징 ===== */
+html, body {
+  height: auto;
+  overflow-y: auto !important;
+}
+.mp-page.warm, .mp-page.warm * {
+  box-sizing: border-box;
+}
+
+/* ===== 따뜻한 테마 팔레트 ===== */
 .mp-page.warm {
   --bg: #f7f3ee;
   --panel: #fff6ee;
@@ -9,14 +18,17 @@
   --accent: #c38b66;   /* 카라멜 */
   --accent-2: #9b6b4f; /* 모카 */
   --chip: #efdfd2;
+
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto auto auto auto 1fr;
+
+  /* 스크롤이 자연스럽게 흐르도록 grid 대신 flex 사용 */
+  display: flex;
+  flex-direction: column;
 }
 
-/* 헤더 */
+/* ===== 헤더 ===== */
 .mp-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 12px 16px; background: var(--panel-2); border-bottom: 1px solid var(--line);
@@ -33,7 +45,7 @@
 }
 .mp-home-btn:hover { transform: translateY(-1px); filter: brightness(0.95); }
 
-/* 카테고리 바 */
+/* ===== 카테고리 바 ===== */
 .mp-categories {
   display: flex; gap: 8px; padding: 10px 16px; margin: 0;
   background: var(--panel); border-bottom: 1px solid var(--line);
@@ -46,7 +58,7 @@
 .mp-cat-btn:hover { transform: translateY(-1px); background: #fffaf4; }
 .mp-cat-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 6px 16px rgba(195,139,102,.18); }
 
-/* 툴바: 검색/정렬/카운트 */
+/* ===== 툴바: 검색/정렬/카운트 ===== */
 .mp-toolbar {
   display:flex; justify-content:space-between; align-items:center;
   padding:12px 16px; background:#fff; border-bottom:1px solid var(--line);
@@ -54,33 +66,37 @@
 .mp-toolbar-left { display:flex; gap:8px; align-items:center; }
 .mp-search {
   width:280px; padding:10px 12px; border:1px solid var(--line); border-radius:10px;
-  background:#fffaf4; outline:none;
+  background:#fffaf4; outline:none; font-size: 0.95rem;
 }
 .mp-search:focus { border-color: var(--accent); background:#fff; }
 .mp-count { color:var(--muted); font-size:.9rem; }
 .mp-sort {
-  padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:#fff;
+  padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:#fff; font-size: 0.95rem;
 }
 
-/* 지도 히어로: 상단 공백 없이 꽉 차게 */
+/* ===== 지도 히어로: 상단 공백 없이 꽉 차게 ===== */
 .mp-hero {
-  height: 46vh; /* 필요시 40~55vh에서 조절 */
-  padding: 0; margin: 0;
+  /* 필요에 따라 44~60vh 범위에서 조절 */
+  height: 50vh;
+  min-height: 320px;
+  padding: 0;
+  margin: 0;
   border-bottom: 1px solid var(--line);
   background: #fff;
+  overflow: hidden;
 }
 
-/* 리스트 섹션 */
+/* ===== 리스트 섹션 ===== */
 .mp-list-block { padding: 16px; margin: 0; }
 .mp-list-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
 .mp-list-header h2 { margin: 0; font-size: 1rem; color: var(--text); }
 .mp-error { color: #b33; margin: 0; }
 .mp-empty { color: var(--muted); padding: 12px; background: #fffaf4; border: 1px dashed var(--line); border-radius: 10px; }
 
-/* 카드 그리드 */
+/* ===== 카드 그리드 ===== */
 .mp-cards { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
 .mp-card {
-  display: grid; grid-template-columns: 56px 1fr; gap: 12px;
+  display: grid; grid-template-columns: 56px 1fr auto; gap: 12px;
   padding: 12px; border: 1px solid var(--line); border-radius: 12px;
   background: #fffaf4; cursor: pointer; min-height: 96px;
   transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
@@ -97,16 +113,182 @@
 .mp-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
 .mp-chip { font-size: .78rem; padding: 3px 8px; border: 1px solid var(--line); border-radius: 999px; background: var(--chip); color: var(--accent-2); }
 
-/* Skeleton */
+/* ===== Skeleton ===== */
 .skeleton { position:relative; overflow:hidden; }
 .sk-line { height:12px; background:#f1e7dc; border-radius:6px; margin:8px 0; }
 .sk-line.w60 { width:60%; } .sk-line.w90 { width:90%; } .sk-line.w40 { width:40%; }
 .sk { background: linear-gradient(90deg, #f1e7dc 25%, #f7eee4 37%, #f1e7dc 63%); animation: sk 1.2s infinite; }
 @keyframes sk { 0% { background-position:-200px 0; } 100% { background-position:calc(200px + 100%) 0; } }
 
-/* 모바일 대응 */
+/* ===== 모바일 대응 ===== */
 @media (max-width: 768px) {
   .mp-hero { height: 42vh; }
   .mp-search { width: 100%; }
   .mp-cards { grid-template-columns: 1fr; }
+}
+
+/* ===== 비교하기 UI ===== */
+.cmp-check {
+  display:flex; align-items:center; gap:6px;
+  margin-left:auto; font-size:.86rem; color: var(--muted);
+}
+.cmp-check input { transform: translateY(1px); }
+
+.mp-compare {
+  margin: 10px 16px 32px;
+  padding: 16px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.05);
+}
+.cmp-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.cmp-title { font-weight:800; color:var(--text); }
+.cmp-clear {
+  background:var(--panel); border:1px solid var(--line); border-radius:10px;
+  padding:8px 12px; cursor:pointer;
+}
+.cmp-grid {
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:12px; margin-bottom:14px;
+}
+.cmp-card {
+  border:1px solid var(--line); border-radius:12px; padding:12px; background:#fffaf4;
+}
+.cmp-thumb { height:80px; border-radius:10px; background:linear-gradient(135deg,#e9d7c6,#d7bca6); margin-bottom:8px; }
+.cmp-name { font-weight:700; }
+.cmp-desc { color:var(--muted); font-size:.9rem; margin-top:2px; }
+.cmp-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+.cmp-badge { font-size:.78rem; padding:3px 8px; border:1px solid var(--line); border-radius:999px; background:#fff; color:var(--accent-2); }
+
+/* 비교 테이블 */
+.cmp-table-wrap { overflow:auto; }
+.cmp-table { width:100%; border-collapse:separate; border-spacing:0; }
+.cmp-table thead th {
+  background:var(--panel-2); color:var(--text); padding:10px; border:1px solid var(--line);
+}
+.cmp-table tbody td, .cmp-table tbody th {
+  padding:10px; border:1px solid var(--line); background:#fff;
+}
+.cmp-table tbody tr:nth-child(odd) td { background:#fffaf4; }
+.cmp-tagline { display:flex; gap:6px; flex-wrap:wrap; }
+.cmp-chip {
+  font-size:.78rem; padding:3px 8px; border:1px solid var(--line); border-radius:999px; background:var(--chip); color: var(--accent-2);
+}
+
+/* ===== MySpot Modal & Form ===== */
+.spot-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.spot-modal {
+  width: min(560px, 92vw);
+  background: #fffaf4;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.18);
+  overflow: hidden;
+}
+
+.spot-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--line);
+}
+.spot-modal-header h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.spot-form {
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.spot-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.spot-form label {
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+.spot-form input[type="text"],
+.spot-form input[type="date"],
+.spot-form input[type="number"],
+.spot-form textarea,
+.spot-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.spot-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.spot-form .inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spot-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn-ghost {
+  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--line);
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn-primary:hover { filter: brightness(.95); }
+.btn-ghost:hover { background: #fffaf4; }
+
+.close-x {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+  color: var(--muted);
+}
+
+/* 모바일 */
+@media (max-width: 600px) {
+  .spot-row { grid-template-columns: 1fr; }
 }

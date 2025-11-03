@@ -1,0 +1,24 @@
+.spot-form {
+  background: #fff8f0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.1);
+  width: 300px;
+  margin: 20px auto;
+}
+.spot-form input, .spot-form textarea, .spot-form select {
+  width: 100%;
+  margin: 8px 0;
+  padding: 8px;
+  border: 1px solid #e6d9cc;
+  border-radius: 6px;
+}
+.spot-form button {
+  background: #c38b66;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.spot-form button:hover { background: #9b6b4f; }
